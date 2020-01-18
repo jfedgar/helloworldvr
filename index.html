@@ -37,9 +37,7 @@
         <a-asset-item id="rock1" src="models/rock/scene.gltf"></a-asset-item> 
       </a-assets>
 
-      <a-entity hand-controls="right" position="0 1 0" teleport-controls></a-entity>
-
-      <a-entity id="cameraRig">
+      <a-entity id="cameraRig" movement-controls>
         <a-entity id="head" camera look-controls wasd-controls position="0 1.5 0">
           <a-cursor></a-cursor>
 
@@ -68,6 +66,7 @@
 
         </a-entity>
 
+        <!-- hand controls -->
         <a-entity hand-controls="left" position="0 1 0" teleport-controls="cameraRig: #cameraRig; button: trigger; teleportOrigin: #head;">
           <a-entity
             id="weapon"
@@ -81,6 +80,7 @@
             ></a-entity>
           </a-entity>
         </a-entity>
+        <a-entity hand-controls="right" position="0 1 0" teleport-controls></a-entity>
 
       </a-entity>
 
