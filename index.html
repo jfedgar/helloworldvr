@@ -31,7 +31,7 @@
         <a-asset-item id="tree1" src="models/low_poly_trees/scene.gltf"></a-asset-item>
         <a-asset-item id="tree2" src="models/trees_of_the_immortal_garden/scene.gltf"></a-asset-item>
         <a-asset-item id="tree3" src="models/elm_tree/scene.gltf"></a-asset-item>
-        <<a-asset-item id="moon_model" src="models/nasa_cgi_moon_kit/scene.gltf"></<a-asset-item>
+        <a-asset-item id="moon_model" src="models/nasa_cgi_moon_kit/scene.gltf"></a-asset-item>
         <a-asset-item id="cauldron" src="models/evil_cauldron/scene.gltf"></a-asset-item>
         <a-asset-item id="rock1" src="models/rock/scene.gltf"></a-asset-item> 
       </a-assets>
@@ -94,7 +94,7 @@
       <a-entity gltf-model="#tree1" position="33 5.5 -30" static-body></a-entity>
 
       <a-entity environment="preset: starry; ground: noise; groundColor: #050d04 ; groundYScale: 10; playArea:1; dressing: trees; dressingColor: #348a25; seed: 2;" static-body></a-entity>
-      <a-entity hand-controls="left" orientationOffset="0 1 0"></a-entity>
+      <a-entity hand-controls="left" tracked-controls="orientationOffset: 0 1 0;"></a-entity>
       <a-entity hand-controls="right"></a-entity>
 
       <!--<a-plane
