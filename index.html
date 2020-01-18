@@ -36,24 +36,10 @@
         <a-asset-item id="rock1" src="models/rock/scene.gltf"></a-asset-item> 
       </a-assets>
 
-      <a-entity hand-controls="left" position="0 1 0" teleport-controls="cameraRig: #cameraRig; teleportOrigin: #head;">
-        <a-entity
-          id="weapon"
-          rotation="-75 0 0"
-          position="0 0 -4"
-          static-body="shape:sphere; sphereRadius: .3;"
-        >
-          <a-entity gltf-model="#staff_model"
-            scale="0.18 0.18 0.18"
-            position="0 -1.5 0"
-          ></a-entity>
-        </a-entity>
-      </a-entity>
       <a-entity hand-controls="right" position="0 1 0" teleport-controls></a-entity>
 
       <a-entity id="cameraRig">
         <a-entity id="head" camera look-controls wasd-controls position="0 1.5 0">
-
           <a-cursor></a-cursor>
 
           <a-text
@@ -80,6 +66,21 @@
           -->
 
         </a-entity>
+
+        <a-entity hand-controls="left" position="0 1 0" teleport-controls="cameraRig: #cameraRig; button: trigger; teleportOrigin: #head;">
+          <a-entity
+            id="weapon"
+            rotation="-75 0 0"
+            position="0 0 -4"
+            static-body="shape:sphere; sphereRadius: .3;"
+          >
+            <a-entity gltf-model="#staff_model"
+              scale="0.18 0.18 0.18"
+              position="0 -1.5 0"
+            ></a-entity>
+          </a-entity>
+        </a-entity>
+
       </a-entity>
 
       <a-entity id='imp'
