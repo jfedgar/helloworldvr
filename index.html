@@ -2,6 +2,8 @@
   <head>
     <script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script>
     <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v3.13.1/dist/aframe-extras.min.js"></script>
+    <script src="https://unpkg.com/aframe-environment-component@1.0.0/dist/aframe-environment-component.min.js"></script>
+    <script src="https://cdn.rawgit.com/matthewbryancurtis/aframe-star-system-component/db4f1030/index.js"></script>
     <script>
         $ = (sel) => document.querySelector(sel)
         $$ = (sel) => document.querySelectorAll(sel)
@@ -9,26 +11,32 @@
 
         let hit = false
         let resetId = 0
-        const resetBall = () => {
+        const resetImp = () => {
             clearTimeout(resetId)
-            $("#ball").body.position.set(0,0.6,-4)
-            $("#ball").body.velocity.set(0,5,0)
-            $("#ball").body.angularVelocity.set(0,0,0)
+            $("#imp").body.position.set(0,0.6,-4)
+            $("#imp").body.velocity.set(0,5,0)
+            $("#imp").body.angularVelocity.set(0,0,0)
             hit = false
-            resetId = setTimeout(resetBall,6000)
+            resetId = setTimeout(resetImp,6000)
         }
     </script>
 
   </head>
 
   <body>
-    <a-scene stats physics="debug:true;">
+    <a-scene stats physics="debug:true;" terrain-walk terrain="addwater: false" game>
       <a-assets>
-        <a-asset-item id="imp" src="models/imp_character/scene.gltf"></a-asset-item>
-        <a-asset-item id="staff" src="models/gandalf_staff/scene.gltf"></a-asset-item>
+        <a-asset-item id="imp_model" src="models/imp_character/scene.gltf"></a-asset-item>
+        <a-asset-item id="staff_model" src="models/gandalf_staff/scene.gltf"></a-asset-item>
+        <a-asset-item id="tree1" src="models/low_poly_trees/scene.gltf"></a-asset-item>
+        <a-asset-item id="tree2" src="models/trees_of_the_immortal_garden/scene.gltf"></a-asset-item>
+        <a-asset-item id="tree3" src="models/elm_tree/scene.gltf"></a-asset-item>
+        <<a-asset-item id="moon_model" src="models/nasa_cgi_moon_kit/scene.gltf"></<a-asset-item>
+        <a-asset-item id="cauldron" src="models/evil_cauldron/scene.gltf"></a-asset-item>
+        <a-asset-item id="rock1" src="models/rock/scene.gltf"></a-asset-item> 
       </a-assets>
 
-      <a-entity camera look-controls position="0 1.5 0">
+      <a-entity camera look-controls wasd-controls position="0 1.5 0">
         <a-cursor></a-cursor>
         <a-text
           id="score"
@@ -45,7 +53,7 @@
           position="0 0 -4"
           static-body="shape:sphere; sphereRadius: .3;"
         >
-          <a-entity gltf-model="#staff"
+          <a-entity gltf-model="#staff_model"
             scale="0.18 0.18 0.18"
             position="0 -1.5 0"
           ></a-entity>
@@ -53,37 +61,65 @@
 
       </a-entity>
 
-      <a-entity id='ball'
+      <a-entity id='imp'
         position="0 1 -4"
         dynamic-body
       >
-        <a-entity id='imp-model' gltf-model="#imp"></a-entity>
+        <a-entity id='imp-model' gltf-model="#imp_model"></a-entity>
       </a-entity>
 
-      <a-plane
-        color='red'
+      <!-- cauldron -->
+      <a-entity gltf-model="#cauldron"
+        position="1.5 0 -3.5" 
+        animation-mixer
+      ></a-entity>
+      
+      <!-- the moon -->
+      <a-entity gltf-model="#moon_model"
+        id="moon"
+        scale="1 1 1"
+        position="-10 50 -40"
+      >
+      </a-entity>
+
+      <!-- lights -->
+      <a-entity light="type: directional; color: #ffffff; intensity: 3;"
+              position="-10 50 -40"></a-entity>
+      <a-entity light="type: spot; target: #moon; intensity: 2; angle: 45;" position="-10 30 -20 "></a-entity>
+
+      <!-- trees -->
+      <a-entity gltf-model="#tree3" position="-25 0 -5" scale=".01 .01 .01"></a-entity>
+      <a-entity gltf-model="#tree2" position="-5 4 -15" scale=".04 .04 .04" rotation="0 35 0"></a-entity>
+      <a-entity gltf-model="#tree1" position="33 2 -10" scale=".5 .5 .5" static-body></a-entity>
+      <a-entity gltf-model="#tree1" position="33 5.5 -30" static-body></a-entity>
+
+      <a-entity environment="preset: starry; ground: noise; groundColor: #050d04 ; groundYScale: 10; playArea:1; dressing: trees; dressingColor: #348a25; seed: 2;" static-body></a-entity>
+      <a-entity hand-controls="left"></a-entity>
+      <a-entity hand-controls="right"></a-entity>
+
+      <!--<a-plane
         rotation="-90 0 0"
         width="100"
         height="100"
         static-body
       >
       </a-plane>
-    </a-scene>
+    </a-scene>-->
 
 
     <script>
       let score = 0;
       on($("#weapon"),'collide',(e)=>{
-          const ball = $("#ball")
-          if(e.detail.body.id === ball.body.id && !hit) {
+          const imp = $("#imp")
+          if(e.detail.body.id === imp.body.id && !hit) {
               hit = true
               score = score + 1
               clearTimeout(resetId)
-              resetId = setTimeout(resetBall,2000)
+              resetId = setTimeout(resetImp,2000)
               $("#score").setAttribute('text','value','Score '+score)
           }
       })
-      setTimeout(resetBall,3000)
+      setTimeout(resetImp,3000)
     </script>
   </body>
 </html>
